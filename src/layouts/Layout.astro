@@ -1,0 +1,200 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+}
+
+const { 
+  title, 
+  description, 
+  image = '/social-preview.jpg'
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const mainNavItems = [
+  { href: "#about", label: "Über uns" },
+  { href: "#services", label: "Leistungen" },
+  { href: "#process", label: "Prozess" },
+  { href: "#testimonials", label: "Referenzen" },
+  { href: "#contact", label: "Kontakt" },
+];
+---
+
+<!doctype html>
+<html lang="de" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.url)} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.url)} />
+  </head>
+  <body class="bg-white">
+    <header class="fixed w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+      <nav class="max-w-6xl mx-auto px-4 py-4">
+        <div class="flex justify-between items-center">
+          <a href="/" class="flex items-center space-x-2">
+            <img src="/images/logo.svg" alt="Dr. Jensen Logo" class="h-10" width="200" height="50" />
+          </a>
+          
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex space-x-8">
+            {mainNavItems.map(item => (
+              <a 
+                href={item.href}
+                class="text-gray-600 hover:text-blue-600 transition-colors font-medium"
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+
+          <!-- Mobile Navigation Button -->
+          <button 
+            id="menuButton"
+            class="md:hidden p-2 text-gray-600 hover:text-blue-600"
+            aria-label="Toggle Menu"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div 
+          id="mobileMenu"
+          class="hidden md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-lg"
+        >
+          <div class="px-4 py-2">
+            {mainNavItems.map(item => (
+              <a 
+                href={item.href}
+                class="block py-2 text-gray-600 hover:text-blue-600 transition-colors"
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="pt-20">
+      <slot />
+    </main>
+
+    <footer class="bg-gray-900 text-white mt-20">
+      <div class="max-w-6xl mx-auto px-4 py-12">
+        <div class="grid md:grid-cols-4 gap-8">
+          <!-- Contact Info -->
+          <div>
+            <img src="/images/logo.svg" alt="Dr. Jensen Logo" class="h-8 mb-4 brightness-0 invert" width="160" height="40" />
+            <address class="not-italic">
+              <p>Dr. Anastasia Jensen</p>
+              <p>Forensische Gutachterin</p>
+              <p>Berlin, Deutschland</p>
+            </address>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <h3 class="font-semibold mb-4">Quick Links</h3>
+            <ul class="space-y-2">
+              {mainNavItems.map(item => (
+                <li>
+                  <a 
+                    href={item.href}
+                    class="text-gray-300 hover:text-white transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Legal -->
+          <div>
+            <h3 class="font-semibold mb-4">Rechtliches</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="/impressum" class="text-gray-300 hover:text-white transition-colors">
+                  Impressum
+                </a>
+              </li>
+              <li>
+                <a href="/datenschutz" class="text-gray-300 hover:text-white transition-colors">
+                  Datenschutz
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <h3 class="font-semibold mb-4">Kontakt</h3>
+            <ul class="space-y-2">
+              <li>
+                <a 
+                  href="mailto:kontakt@dr-jensen-forensik.de"
+                  class="text-gray-300 hover:text-white transition-colors"
+                >
+                  kontakt@dr-jensen-forensik.de
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="tel:+49301234567"
+                  class="text-gray-300 hover:text-white transition-colors"
+                >
+                  +49 (0) 30 123 4567
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+          <p>© {new Date().getFullYear()} Dr. Anastasia Jensen. Alle Rechte vorbehalten.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const menuButton = document.getElementById('menuButton');
+      const mobileMenu = document.getElementById('mobileMenu');
+
+      if (menuButton && mobileMenu) {
+        menuButton.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

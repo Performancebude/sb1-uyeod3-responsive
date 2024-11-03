@@ -1,0 +1,100 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import AboutSection from '../components/AboutSection.astro';
+import ProcessSection from '../components/ProcessSection.astro';
+import TestimonialsSection from '../components/TestimonialsSection.astro';
+import ContactSection from '../components/ContactSection.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Dr. Anastasia Jensen - Forensische Gutachterin",
+  "description": "Erfahrene forensische Gutachterin für psychologische und psychiatrische Begutachtungen in Berlin",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Berlin",
+    "addressCountry": "DE"
+  },
+  "priceRange": "€€€",
+  "knowsAbout": [
+    "Forensische Psychologie",
+    "Psychiatrische Gutachten",
+    "Schuldfähigkeitsgutachten",
+    "Prognosegutachten",
+    "Glaubhaftigkeitsgutachten"
+  ]
+};
+
+const services = [
+  {
+    title: "Schuldfähigkeitsgutachten",
+    description: "Professionelle Beurteilung der strafrechtlichen Verantwortlichkeit unter Berücksichtigung psychologischer und psychiatrischer Aspekte."
+  },
+  {
+    title: "Prognosegutachten",
+    description: "Wissenschaftlich fundierte Einschätzung zukünftiger Entwicklungen und Verhaltensweisen."
+  },
+  {
+    title: "Glaubhaftigkeitsgutachten",
+    description: "Methodische Analyse und Beurteilung der Glaubhaftigkeit von Aussagen in rechtlichen Kontexten."
+  }
+];
+---
+
+<Layout
+  title="Dr. Anastasia Jensen | Forensische Gutachterin in Berlin"
+  description="Spezialisiert auf forensische Begutachtungen mit jahrelanger Erfahrung in psychologischen und psychiatrischen Gutachten. Kompetent, zuverlässig und wissenschaftlich fundiert."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  
+  <Hero
+    title="Forensische Gutachten mit höchster Expertise"
+    subtitle="Wissenschaftlich fundierte Begutachtungen durch Dr. Anastasia Jensen - Ihre erfahrene Sachverständige in Berlin"
+  />
+
+  <section id="about">
+    <AboutSection />
+  </section>
+
+  <section id="services" class="max-w-6xl mx-auto px-4 py-16">
+    <h2 class="text-3xl font-semibold mb-8">Unsere Expertise</h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      <ServiceCard
+        title="Forensische Begutachtung"
+        description="Spezialisiert auf psychologische und psychiatrische Gutachten im forensischen Kontext."
+      />
+      <ServiceCard
+        title="Qualifikationen"
+        description="Langjährige Erfahrung und kontinuierliche Fortbildung im Bereich der forensischen Begutachtung."
+      />
+    </div>
+  </section>
+
+  <section class="bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 py-16">
+      <h2 class="text-3xl font-semibold mb-8">Leistungen</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        {services.map(service => (
+          <ServiceCard
+            title={service.title}
+            description={service.description}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <ProcessSection />
+  </section>
+  
+  <section id="testimonials">
+    <TestimonialsSection />
+  </section>
+
+  <section id="contact">
+    <ContactSection email="kontakt@dr-jensen-forensik.de" />
+  </section>
+</Layout>

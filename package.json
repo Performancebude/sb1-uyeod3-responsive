@@ -1,0 +1,23 @@
+{
+  "name": "dr-jensen-forensik",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^4.15.3",
+    "@astrojs/sitemap": "^3.1.1",
+    "@astrojs/tailwind": "^5.1.0",
+    "tailwindcss": "^3.4.1",
+    "schema-dts": "^1.1.2",
+    "contentful": "^10.6.21",
+    "@contentful/rich-text-html-renderer": "^16.3.0",
+    "@tailwindcss/typography": "^0.5.10"
+  }
+}
